@@ -4,56 +4,75 @@ import java.util.Scanner;
 public class Rock_Paper_Scissors {
 
     public static void main(String[] args) {
-        Scanner rounds = new Scanner(System.in);
-        System.out.println("Please enter how many rounds you'd like 1-10: ");
-        int i = 0;
-        String Rounds = rounds.nextLine();
-        try {
-             i = Integer.parseInt(Rounds);
-        }
-        catch (Exception e){
-            System.out.println("please enter int");
-        }
-        if (i <1 || i>10){
-            System.out.println("please make sure value is within range");
-            i=0;
-        }
-        int k = 0;
-        while (k < i) {
-            String playerChoice = RPS_player();
-            String compChoice = RPS_comp();
-            String winner = Winner(playerChoice, compChoice);
+        Boolean PlayAgain = true;
+        while (PlayAgain) {
+            Scanner rounds = new Scanner(System.in);
+            System.out.println("Please enter how many rounds you'd like 1-10: ");
+            int i = 0;
+            String Rounds = rounds.nextLine();
+            try {
+                i = Integer.parseInt(Rounds);
+            } catch (Exception e) {
+                System.out.println("please enter int");
+            }
+            if (i < 1 || i > 10) {
+                System.out.println("please make sure value is within range");
+                i = 0;
+            }
+            int k = 0;
             int tie_num = 0;
             int comp_wins = 0;
             int player_wins = 0;
-            if (winner.equals("tie")) {
-                System.out.println("it was a tie");
-                tie_num = tie_num + 1;
-            } else if (winner.equals("comp")) {
-                System.out.println("the computer won this round");
-                comp_wins = comp_wins + 1;
-            } else {
-                System.out.println("player wins this round");
-                player_wins = player_wins + 1;
-            }
-            System.out.println(k);
-            if (player_wins > comp_wins){
-                System.out.println("the player was the overall winner with " +player_wins+" wins");
-            }else{
-                System.out.println("the computer was the overall winner with " +comp_wins+" wins");
-            }
-            k++;
-        }
+            while (k < i) {
+                String playerChoice = RPS_player();
+                String compChoice = RPS_comp();
+                String winner = Winner(playerChoice, compChoice);
 
+                if (winner.equals("tie")) {
+                    System.out.println("it was a tie");
+                    tie_num = tie_num + 1;
+                } else if (winner.equals("comp")) {
+                    System.out.println("the computer won this round");
+                    comp_wins = comp_wins + 1;
+                } else {
+                    System.out.println("player wins this round");
+                    player_wins = player_wins + 1;
+                }
+
+                k++;
+            }
+            System.out.println("player wins: " + player_wins);
+            System.out.println("computer wins: " + comp_wins);
+            System.out.println("Ties: " + tie_num);
+
+            if (player_wins > comp_wins) {
+                System.out.println("the player was the overall winner with " + player_wins + " wins");
+            } else {
+                System.out.println("the computer was the overall winner with " + comp_wins + " wins");
+            }
+
+            System.out.println("do you want to play again press: \n 1. for yes \n 2. for no");
+            Scanner y = new Scanner(System.in);
+            String play = y.nextLine();
+            if (play.equals("1")){
+                PlayAgain = true;
+            } else if (play.equals("2")) {
+                PlayAgain = false;
+            }else {
+                System.out.println("we'll take that as no");
+                PlayAgain = false;
+            }
+
+        }
     }
 
     private static String Winner(String playerChoice, String compChoice) {
 
         String winner = "";
         if (playerChoice == compChoice){
-            winner = "we have a tie";
+            winner = "tie";
         }else if (playerChoice.equals("rock")  && compChoice.equals("paper")){
-            winner = "the winner was comp";
+            winner = "comp";
         }else if (playerChoice.equals("paper")  && compChoice.equals("rock")){
             winner = "Player";
         }else if (playerChoice.equals("rock")  && compChoice.equals("Scissors")) {
