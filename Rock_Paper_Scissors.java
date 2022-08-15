@@ -14,9 +14,11 @@ public class Rock_Paper_Scissors {
                 i = Integer.parseInt(Rounds);
             } catch (Exception e) {
                 System.out.println("please enter int");
+                System.exit(0);
             }
             if (i < 1 || i > 10) {
                 System.out.println("please make sure value is within range");
+                System.exit(0);
                 i = 0;
             }
             int k = 0;
